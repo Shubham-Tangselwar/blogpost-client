@@ -11,20 +11,16 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import AutorenewIcon from "@material-ui/icons/Autorenew";
 import LogoutIcon from "@material-ui/icons/PowerSettingsNew";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import SidebarMenu from "./SidebarMenu";
 import SidebarRoute from "./SidebarRoute";
 import { useHistory } from "react-router-dom";
-
+import { useSelector } from "react-redux";
+import { selectUser } from "../../slices/userSlice";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -118,6 +114,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Sidebar = () => {
   const classes = useStyles();
+  const userObj = useSelector(selectUser);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -166,13 +163,6 @@ const Sidebar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <AccountCircle className={classes.menuIcon} /> Profile
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>
-        <AutorenewIcon className={classes.menuIcon} /> Change Password
-      </MenuItem>
-      <Divider />
       <MenuItem onClick={handleLogout}>
         <LogoutIcon className={classes.menuIcon} />
         Logout
@@ -191,22 +181,8 @@ const Sidebar = () => {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+      <h4>Role : {userObj && userObj.role}</h4>
+      <Divider />
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -244,21 +220,13 @@ const Sidebar = () => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Find Hospital
+            Blog Post
           </Typography>
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <h4>Role : {userObj && userObj.role}</h4>
+            <Divider />
             <IconButton
               edge="end"
               aria-label="account of current user"
